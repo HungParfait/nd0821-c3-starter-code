@@ -24,7 +24,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install --upgrade pip
-        pip install distutils
+        pip install distutils==3.7
         pip install -r ./starter/requirements.txt
 
     - name: Run pytest
