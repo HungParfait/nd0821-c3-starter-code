@@ -1,5 +1,10 @@
+import sys
+import pandas as pd
+from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import fbeta_score, precision_score, recall_score
-
+import hydra
+from omegaconf import DictConfig
+from ml.data import process_data
 
 # Optional: implement hyperparameter tuning.
 def train_model(X_train, y_train):
@@ -18,7 +23,9 @@ def train_model(X_train, y_train):
         Trained machine learning model.
     """
 
-    pass
+    lr_model = LogisticRegression(max_iter=1000, random_state=8071)
+    lr_model.fit(X_train, y_train.ravel())
+    return lr_model
 
 
 def compute_model_metrics(y, preds):
@@ -57,4 +64,64 @@ def inference(model, X):
     preds : np.array
         Predictions from the model.
     """
-    pass
+    return model.predict(X)
+
+def compute_metrics_on_slices_data(
+    df, cat_columns, label, encoder, lb, model, path):
+    
+    """
+    Compute metrics on slices of the data
+
+    Inputs:
+        df: pd.DataFrame
+            Input dataframe
+        cat_columns: list 
+            list of categorical columns
+        label: str 
+            Class label string
+        encoder: OneHotEncoder
+            fitted One Hot Encoder
+        lb: LabelBinarizer
+            label binarizer
+        model:  module.model
+            Trained model binary file
+        path: str
+            path to save the slice output
+    Returns:
+        metrics (pd.DataFrame): Dataframe containing the metrics
+    """
+    rows_list = list()
+    for feature in cat_columns:
+        for category in df[feature].unique():
+            row = {}
+            temp_df = df[df[feature] == category]
+
+            x, y, _, _ = process_data(
+                X=temp_df,
+                categorical_features=cat_columns,
+                label=label,
+                training=False,
+                encoder=encoder,
+                lb=lb
+            )
+
+            preds = inference(model, x)
+            precision, recall, fbeta = compute_model_metrics(y, preds)
+
+            row['feature'] = feature
+            row['precision'] = precision
+            row['recall'] = recall
+            row['f1'] = fbeta
+            row['category'] = category
+            rows_list.append(row)
+
+    metrics = pd.DataFrame(
+        rows_list,
+        columns=[
+            "feature",
+            "precision",
+            "recall",
+            "f1",
+            "category"])
+    metrics.to_csv(path, index=False)
+    return metrics

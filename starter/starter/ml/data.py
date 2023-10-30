@@ -1,3 +1,9 @@
+"""
+Project: Deploy a ML Model to Cloud Application Platform with FastAPI
+Author: HungND
+Date: 2023-10-20
+"""
+
 import numpy as np
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 
