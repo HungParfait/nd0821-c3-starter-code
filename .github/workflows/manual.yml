@@ -32,5 +32,5 @@ jobs:
     
     - name: Run pytest
       run: |
-        cd starter/tests
+        cd starter/
         pytest
