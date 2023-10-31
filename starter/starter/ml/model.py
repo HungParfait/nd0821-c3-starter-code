@@ -1,10 +1,8 @@
-import sys
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import fbeta_score, precision_score, recall_score
-import hydra
-from omegaconf import DictConfig
-from ml.data import process_data
+from .data import process_data
+
 
 # Optional: implement hyperparameter tuning.
 def train_model(X_train, y_train):
@@ -66,18 +64,18 @@ def inference(model, X):
     """
     return model.predict(X)
 
+
 def compute_metrics_on_slices_data(
-    df, cat_columns, label, encoder, lb, model, path):
-    
+        df, cat_columns, label, encoder, lb, model, path):
     """
     Compute metrics on slices of the data
 
     Inputs:
         df: pd.DataFrame
             Input dataframe
-        cat_columns: list 
+        cat_columns: list
             list of categorical columns
-        label: str 
+        label: str
             Class label string
         encoder: OneHotEncoder
             fitted One Hot Encoder

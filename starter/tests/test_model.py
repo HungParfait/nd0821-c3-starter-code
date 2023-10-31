@@ -1,12 +1,11 @@
-import pickle
 import pandas as pd
 import pandas.api.types as pdtypes
 import pytest
-from sklearn.model_selection import train_test_split
+
 
 @pytest.fixture(scope="module")
 def data():
-    return pd.read_csv("data/census_clean.csv", skipinitialspace=True)
+    return pd.read_csv("../data/census_clean.csv", skipinitialspace=True)
 
 
 def test_type_and_presence(data):

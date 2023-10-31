@@ -1,13 +1,8 @@
-"""
-Project: Deploy a ML Model to Cloud Application Platform with FastAPI
-Author: HungND
-Date: 2023-10-20
-"""
-
 import sys
-import json
 import pytest
 from fastapi.testclient import TestClient
+
+sys.path.append('../')
 from main import app
 
 
@@ -27,7 +22,7 @@ def test_get(client):
 def test_post_above_50K(client):
     """Test for salary above 50K"""
 
-    res = client.post("/infer", json={
+    res = client.post("/inference", json={
         "age": 39,
         "workclass": "State-gov",
         "fnlgt": 77516,

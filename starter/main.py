@@ -3,14 +3,13 @@ import pickle
 import pandas as pd
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
-import hydra
 
-from ml.data import process_data
-from ml.model import inference
+from starter.ml.data import process_data
+from starter.ml.model import inference
 
 
 app = FastAPI()
-MODEL_PATH = "model/lr_model.pkl"
+MODEL_PATH = "../model/lr_model.pkl"
 cat_features = [
     "workclass",
     "education",
@@ -21,6 +20,7 @@ cat_features = [
     "sex",
     "native-country",
 ]
+
 
 class InputData(BaseModel):
     age: int
@@ -37,7 +37,6 @@ class InputData(BaseModel):
     capital_loss: int = Field(alias='capital-loss')
     hours_per_week: int = Field(alias='hours-per-week')
     native_country: str = Field(alias='native-country')
-    
     model_config = {
         "json_schema_extra": {
             "examples": [
@@ -81,7 +80,7 @@ async def prediction(input_data: InputData) -> Dict[str, str]:
     [encoder, lb, model] = pickle.load(
         open(MODEL_PATH, "rb"))
     input_df = pd.DataFrame(
-        {k: v for k, v in input_data.dict(by_alias=True).items()}, index=[0]
+        {k: v for k, v in input_data.model_dump(by_alias=True).items()}, index=[0]
     )
 
     processed_input_data, _, _, _ = process_data(

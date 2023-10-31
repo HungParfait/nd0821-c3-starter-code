@@ -12,9 +12,9 @@ from ml.model import (
         compute_metrics_on_slices_data
     )
 # Add code to load in the data.
-DATA_PATH = "../../../data/cencus.csv"
-MODEL_PATH = "../../../model"
-SLICE_OUTPUT_PATH = "../../../"
+DATA_PATH = "../data/census_clean.csv"
+MODEL_PATH = "../model/lr_model.pkl"
+SLICE_OUTPUT_PATH = "../slice_output.txt"
 
 data = pd.read_csv(DATA_PATH)
 # Optional enhancement, use K-fold cross validation instead of a train-test split.
@@ -60,5 +60,5 @@ metrics = compute_metrics_on_slices_data(
     encoder=encoder,
     lb=lb,
     model=model,
-    slice_output_path=SLICE_OUTPUT_PATH
+    path=SLICE_OUTPUT_PATH
 )
