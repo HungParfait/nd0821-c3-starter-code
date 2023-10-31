@@ -9,7 +9,7 @@ A Logistic Regression were trained.
 * Model date: 30 Oct 2023
 
 ## Intended Use
-The model can be used for predicting income classes on census data. There are two income classes >50K and <=50K (binary classification task).
+The model is capable of making predictions regarding income classes based on census data. These classes consist of two groups: those earning more than 50K and those earning 50K or less.
 
 ## Training Data
 The UCI Census Income Data Set was used for training. Further information on the dataset can be found at https://archive.ics.uci.edu/ml/datasets/census+income
@@ -28,4 +28,4 @@ Three metrics were used for model evaluation (performance on test set):
 Since the dataset consists of public available data with highly aggregated census data no harmful unintended use of the data has to be addressed.
 
 ## Caveats and Recommendations
-
+It should be better if a larger dataset is used.
