@@ -28,7 +28,7 @@ jobs:
     
     - name: Run flake8
       run: |
-        flake8 starter/ --exclude sanitycheck.py --max-line-length 90
+        flake8 starter/ --exclude sanitycheck.py --max-line-length 90 --extend-ignore E402
     
     - name: Run pytest
       run: |
