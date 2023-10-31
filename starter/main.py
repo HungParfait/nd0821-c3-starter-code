@@ -9,7 +9,7 @@ from starter.ml.model import inference
 
 
 app = FastAPI()
-MODEL_PATH = "../model/lr_model.pkl"
+MODEL_PATH = "./model/lr_model.pkl"
 cat_features = [
     "workclass",
     "education",
@@ -67,8 +67,7 @@ def welcome():
 
 
 @app.post(path="/inference")
-# @hydra.main(config_path=".", config_name="config", version_base="1.2")
-async def prediction(input_data: InputData) -> Dict[str, str]:
+def prediction(input_data: InputData) -> Dict[str, str]:
     """
     Returning model output from POST request.
     Inputs:

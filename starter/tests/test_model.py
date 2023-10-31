@@ -5,7 +5,7 @@ import pytest
 
 @pytest.fixture(scope="module")
 def data():
-    return pd.read_csv("../data/census_clean.csv", skipinitialspace=True)
+    return pd.read_csv("./data/census_clean.csv", skipinitialspace=True)
 
 
 def test_type_and_presence(data):
