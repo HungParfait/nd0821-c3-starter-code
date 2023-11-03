@@ -127,10 +127,6 @@ def marital_status_values(data):
     assert set(data["marital-status"].unique()) == expected_values
 
 
-def test_process_data(data):
-    pass
-
-
 def test_output_metrics(data):
     """
     Assert that output metrics are in the correct range
@@ -168,9 +164,9 @@ def test_inference(data):
     """
 
     _, test_df = train_test_split(data, test_size=0.20)
-    [encoder, lb, lr_model] = pickle.load(open("model/lr_model.pkl", "rb"))
+    [encoder, lb, lr_model] = pickle.load(open("./model/lr_model.pkl", "rb"))
 
-    X_test, y_test, _, _ = process_data(
+    X_test, _, _, _ = process_data(
         X=test_df,
         categorical_features=cat_features,
         label="salary",

@@ -25,7 +25,7 @@ Three metrics were used for model evaluation (performance on test set):
 * fbeta: 0.3826578699340245
 
 ## Ethical Considerations
-Since the dataset consists of public available data with highly aggregated census data no harmful unintended use of the data has to be addressed.
-
+- Since the dataset consists of public available data with highly aggregated census data no harmful unintended use of the data has to be addressed.
+- Based on correlation matrix between race feature and target label. So I EDA and see the feature importance of the ML model
 ## Caveats and Recommendations
 It should be better if a larger dataset is used.
